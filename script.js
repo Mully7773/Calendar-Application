@@ -22,6 +22,7 @@ var block5 = $('#5');
 
 
 
+//For saving to local storage and keeping data on refresh
 
 saveBtn.on("click", function() {
     // var textArea = $(this).siblings(".schedule")[0]
@@ -33,11 +34,24 @@ saveBtn.on("click", function() {
     localStorage.setItem(hour, schedule)
     });
 
+    function saveSchedule() {
+        $(".hour").each(function() {
+            var currentHour = $(this).text();
+            var currentSchedule = localStorage.getItem(currentHour);
+
+            if(currentSchedule !== null) { // Use null because this means it's an empty schedule
+                $(this).siblings(".schedule").val(currentSchedule);
+            }
+        });
+    }
 
 
 
 
 
+
+
+// For color-coded time blocks
 
     function timeBlock() {
 
@@ -60,4 +74,4 @@ saveBtn.on("click", function() {
 
 
     timeBlock();
-
+    saveSchedule();

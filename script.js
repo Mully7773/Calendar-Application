@@ -6,44 +6,53 @@ $("#1a").text(moment().format('dddd MMMM Do YYYY'));
 
 // Variables
 var saveBtn = $('.saveBtn');
-var items = $('.schedule');
+var blocks = $('.schedule');
+
+
+var block9 = $('#9');
+var block10 = $('#10');
+var block11 = $('#11');
+var block12 = $('#12');
+var block1 = $('#1');
+var block2 = $('#2');
+var block3 = $('#3');
+var block4 = $('#4');
+var block5 = $('#5');
 
 
 
 
-// Save value in text input
-function store(){
-    var formInputEl = $('.schedule').val;
+
+saveBtn.on("click", function() {
+    // var textArea = $(this).siblings(".schedule")[0]
+    // var text = textArea.val();
+    var hour = $(this).siblings(".hour").text();
+    var schedule = $(this).siblings(".schedule").val();
     
-    var userInput = {
-        formInputEl: formInputEl,
-    }
-    window.localStorage.setItem(formInputEl, JSON.stringify(formInputEl));
-    }
 
-saveBtn.on("click", function(event){
-        event.preventDefault();
-        store();
-    })
+    localStorage.setItem(hour, schedule)
+    });
+
+
 
 
 
 
 
     function timeBlock() {
-        var blockHour = moment().hours(); //logs the current hour military time
-        //How do I get the block hour?
-        
-    
-        $(".schedule").each(function() { //loops through each textbox
+
+        blocks.each(function() { //loops through each textbox
             var currentHour = parseInt(moment().format('H')) //Gives current hour
             // console.log(currentHour)
-            if (currentHour > blockHour) {
-                $(".schedule").addClass("future");
+            var blockHour = parseInt($(this).attr('id'))
+            console.log("blockhour", blockHour)
+            console.log("currentHour", currentHour)
+            if (currentHour < blockHour) {
+                $(this).addClass("future");
             } else if (currentHour === blockHour) {
-                $(".schedule").addClass("present");
+                $(this).addClass("present");
             } else {
-                $(".schedule").addClass("past");
+                $(this).addClass("past");
             }
         })
     };
